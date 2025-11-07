@@ -1,6 +1,8 @@
-﻿using SistemaUNI.Modelos;
+﻿using Newtonsoft.Json;
+using SistemaUNI.Modelos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +36,19 @@ namespace SistemaUNI.Controlador
         public List<Carrera> GetCarreras()
         {
             return listaCarrera;
+        }
+        public bool GuardarJson(string rutaArchivo)
+        {
+            try
+            {
+                var json = JsonConvert.SerializeObject(listaCarrera, Formatting.Indented);
+                File.WriteAllText(rutaArchivo, json, Encoding.UTF8);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
